@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource, reqparse, request
 from websocket import create_connection
 
 from EQPStatusReport import statusReport
@@ -9,7 +9,9 @@ from EQPDataTimeRequest import dataTimeRequest
 from EQPMainInfoReport import mainInfoReport
 from EQPStartCheck import startCheck
 from EQPEventReport import eventReport
-
+from GetEQPParameterList import getEQPParameterList
+from GetEQPParameterValueList import getEQPParameterValueList
+from GetEQPState import getEQPState
 #Let see whether we need a websocket connection
 #ws = create_connection("ws://localhost:19997", origin = "Silicool_Server")
 
@@ -69,14 +71,47 @@ class EventReport(Resource):
 api.add_resource(User, "/user/<string:name>")
 
 #Test API for reading the result object
-api.add_resource(StatusReport, "/statusReport")
-api.add_resource(AlarmReport, "/alarmReport")
-api.add_resource(DataCollectionReport, "/dataCollectionReport")
-api.add_resource(DataTimeRequest, "/dataTimeRequest")
-api.add_resource(MainInfoReport, "/mainInfoReport")
-api.add_resource(StartCheck, "/startCheck")
-api.add_resource(EventReport, "/eventReport")
+@app.route("/RestAPI/StatusReport", methods=['GET','POST'])
+def StatusReport():
+    return statusReport(), 200
 
+@app.route("/RestAPI/", methods=['GET','POST'])
+def AlarmReport():
+    return alarmReport(), 200
+    
+@app.route("/RestAPI/DataCollectionReport", methods=['GET','POST'])
+def DataCollectionReport():
+    return dataCollectionReport(), 200
+    
+@app.route("/RestAPI/DataTimeRequest", methods=['GET','POST'])
+def DataTimeRequest():
+    return dataTimeRequest(), 200
+    
+@app.route("/RestAPI/MainInfoReport", methods=['GET','POST'])
+def MainInfoReport():
+    return mainInfoReport(), 200
+
+@app.route("/RestAPI/StartCheck", methods=['GET','POST'])
+def StartCheck():
+    return startCheck(), 200
+
+@app.route("/RestAPI/EventReport", methods=['GET','POST'])
+def EventReport():
+    return eventReport(), 200
+
+#Serve HTTP Post 
+@app.route("/RestAPI/GetEQPParameterList", methods=['POST'])
+def GetEQPParameterList():
+    return getEQPParameterList(request.json), 200
+
+@app.route("/RestAPI/GetEQPParameterValueList", methods=['POST'])
+def GetEQPParameterValueList():
+    return getEQPParameterValueList(request.json), 200
+    
+@app.route("/RestAPI/GetEQPState", methods=['POST'])
+def GetEQPState():
+    return getEQPState(request.json), 200    
+    
 #Run api server
 app.run(host="0.0.0.0", debug=False, port=5000)
 
