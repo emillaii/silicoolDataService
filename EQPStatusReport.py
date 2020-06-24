@@ -1,11 +1,11 @@
 from datetime import datetime
+from Config import Config
 
 template = {
-    "eqpId": "Silicool Machine 1",
-    "runStatus": 1,
-    "eqpType": "AA",
+    "eqpId": Config.eqpId,
+    "eqpType": Config.eqpType,
     "collectionTime": "2020-01-02 08:17:12.123456",
-    "position": "Sunny",
+    "position": Config.position,
     "description": "......",
     "lotNo": "12345",
     "orderNo": "order 1234",

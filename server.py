@@ -2,7 +2,8 @@ from flask import Flask
 from flask_restful import Api, Resource, reqparse
 from websocket import create_connection
 
-from EAP.EQPStatusReport  import statusReport
+from EQPStatusReport import statusReport
+from EQPAlarmReport import alarmReport
 #Let see whether we need a websocket connection
 #ws = create_connection("ws://localhost:19997", origin = "Silicool_Server")
 
@@ -33,12 +34,17 @@ class User(Resource):
 class StatusReport(Resource):
     def get(self):
         return statusReport(), 200
+
+class AlarmReport(Resource):
+    def get(self):
+        return alarmReport(), 200
         
 #define route
 api.add_resource(User, "/user/<string:name>")
 api.add_resource(StatusReport, "/statusReport")
+api.add_resource(AlarmReport, "/alarmReport")
 
 #Run api server
-app.run(host="0.0.0.0", debug=False)
+app.run(host="0.0.0.0", debug=False, port=5000)
 
 
