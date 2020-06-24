@@ -39,34 +39,6 @@ class User(Resource):
                 return user, 200
         return "User not found", 404
 
-class StatusReport(Resource):
-    def get(self):
-        return statusReport(), 200
-
-class AlarmReport(Resource):
-    def get(self):
-        return alarmReport(), 200
-
-class DataCollectionReport(Resource):
-    def get(self):
-        return dataCollectionReport(), 200
-        
-class DataTimeRequest(Resource):
-    def get(self):
-        return dataTimeRequest(), 200
-
-class MainInfoReport(Resource):
-    def get(self):
-        return mainInfoReport(), 200
-
-class StartCheck(Resource):
-    def get(self):
-        return startCheck(), 200
-
-class EventReport(Resource):
-    def get(self):
-        return eventReport(), 200
-
 #define route
 api.add_resource(User, "/user/<string:name>")
 
