@@ -1,3 +1,4 @@
+from EQPStatusReport import getCachedStatus 
+
 def getEQPState(req):
-    print(req)
-    return 'Hello123 '
+    return getCachedStatus()

@@ -16,6 +16,9 @@ paramTemplate = {
     "value": "value001"
 }
 
+#Used for cache the result and return that from external query
+cachedResult = template
+
 def dataCollectionReport():
     print("dataCollectionReport")
     template["paramList"] = [] 
@@ -34,4 +37,9 @@ def dataCollectionReport():
     template["paramList"].append(paramList1)    
     template["paramList"].append(paramList2)    
     
+    cachedResult = template
+    
     return template
+    
+def getCachedResult():
+    return cachedResult
